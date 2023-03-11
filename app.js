@@ -216,9 +216,19 @@ function init() {
             hideSidebar()
             Promise.all([
                 fetchModule("TITechTemplate.json", "tech", () => {
+                    modules.tech.forEach((obj) => {
+                        if (localizationData[obj["dataName"]])
+                            obj["friendlyName"] =
+                                localizationData[obj["dataName"]]["displayName"]
+                    })
                     techs = modules.tech
                 }),
                 fetchModule("TIProjectTemplate.json", "project", () => {
+                    modules.project.forEach((obj) => {
+                        if (localizationData[obj["dataName"]])
+                            obj["friendlyName"] =
+                                localizationData[obj["dataName"]]["displayName"]
+                    })
                     projects = modules.project
                     projects.forEach((project) => {
                         project.isProject = true
@@ -300,6 +310,7 @@ function initSearchBox() {
         },
         tokenize: "full",
     })
+    debugger
     techTree.forEach((tech, index) => {
         tech.id = index
         documentSearchIndex.add(tech)
